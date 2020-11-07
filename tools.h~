@@ -1,0 +1,30 @@
+#ifndef TOOLS_H
+#define TOOLS_H
+
+#ifdef DEBUG
+	#define debug(...) printf(__VA_ARGS__)
+#else
+	#define debug(...)
+#endif
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <getch.h>
+#include <string.h>
+
+int menu();	//显示登陆界面
+
+char stu_show(void);//显示学生登录界面
+
+void tch_show(void);//显示老师界面
+
+char admin_show(void);//显示校长界面
+
+void show_msg(const char* msg,float sec); //如果msg没有换行符，就手动刷新
+
+void anykey_continue(void);//按任意键继续
+
+int stu_input_pwd();//学生登陆
+
+int tch_input_pwd();//老师登陆
+#endif//TOOLS_H

@@ -1,0 +1,13 @@
+touch main.c
+touch sys.c 
+touch sys.h 
+touch student.c 
+touch student.h 
+touch teacher.c 
+touch teacher.h 
+touch admin.c 
+touch admin.h 
+touch struct.c 
+touch struct.h 
+touch tools.c 
+touch tools.h 
