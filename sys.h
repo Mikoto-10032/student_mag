@@ -17,9 +17,9 @@ void tch_out_read(void);//读取离职老师信息
 
 void tch_out_write(void);//写入离职老师信息
 
-void admin_read(void);
+void admin_read(void);//取读校长信息
 
-void admin_write(void);
+void admin_write(void);//写入校长信息
 	
 void run_sys(void);//运行系统
 

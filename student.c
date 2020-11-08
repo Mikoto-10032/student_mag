@@ -66,7 +66,7 @@ void stu_modify(void)
 		system("clear");
 		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 		printf("请输入新密码：");
-		for(int i=0;i<30;i++)
+		for(int i=0;i<30;i++)					//将输入的密码隐藏为‘*’
 		{
 			pwd_1[i] = getch();
 			if(pwd_1[i] == 10)
@@ -84,7 +84,7 @@ void stu_modify(void)
 		}
 		printf("请再次输入密码：");
 		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
-		for(int i=0;i<30;i++)
+		for(int i=0;i<30;i++)					//将输入的密码隐藏为‘*’
 		{
 			pwd_2[i] = getch();
 			if(pwd_2[i] == 10)
@@ -95,12 +95,12 @@ void stu_modify(void)
 			printf("*");
 		}
 		printf("\n");
-		if(strcmp(stu_in[opt].pwd,pwd_2) == 0)
+		if(strcmp(stu_in[opt].pwd,pwd_2) == 0)					//判断输入的密码和之前的密码是否一致
 		{
 			show_msg("修改的密码与原密码相同，修改失败！",1.0);
 			break;
 		}
-		else if(strcmp(pwd_1,pwd_2) == 0)
+		else if(strcmp(pwd_1,pwd_2) == 0)						//判断输入的两次密码是否一致
 		{
 			//将原密码置空，新密码赋值给原密码
 			memset(stu_in[opt].pwd,0,sizeof(char)*30);
@@ -108,14 +108,14 @@ void stu_modify(void)
 			show_msg("修改密码成功！",1.0);
 			break;
 		}
-		else
+		else															//输入的两次密码不一致
 		{
 			show_msg("两次密码不一致，请重新输入",1.0);
 		}
 	}
 }
 
-
+//运行学生系统
 void run_student(void)
 {
 	for(;;)

@@ -1,12 +1,6 @@
 #ifndef TEACHER_H
 #define TEACHER_H
 
-extern Student stu_out[50];
-extern Student stu_in[50];
-
-extern Teacher tch_in[50];
-extern Teacher tch_out[50];
-
 extern int stu_in_cnt;//在校学生个数
 extern int stu_out_cnt;//退学学生个数
 extern int stu_id;

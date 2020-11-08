@@ -6,7 +6,7 @@
 #include "admin.h"
 #include "struct.h"
 //写入在校学生信息
-void stu_in_write()
+void stu_in_write(void)
 {
 	FILE *fwp = fopen("stu_in.txt","w");
 	if(fwp == NULL)
@@ -22,7 +22,7 @@ void stu_in_write()
 	fclose(fwp);
 }
 //读取在校学生信息
-void stu_in_read()
+void stu_in_read(void)
 {
 	//打开文件
 	FILE *frp = fopen("stu_in.txt","r");
@@ -39,7 +39,7 @@ void stu_in_read()
 	fclose(frp);
 }
 //写入退出学生信息
-void stu_out_write()
+void stu_out_write(void)
 {
 	FILE *fwp = fopen("stu_out.txt","w");
 	if(fwp == NULL)
@@ -55,7 +55,7 @@ void stu_out_write()
 	fclose(fwp);
 }
 //读取退出学生信息
-void stu_out_read()
+void stu_out_read(void)
 {
 	//打开文件
 	FILE *frp = fopen("stu_out.txt","r");
@@ -64,7 +64,7 @@ void stu_out_read()
 		printf("Cannot open file!\n");
 		return;
 	}
-	fscanf(frp,"%d",&stu_out_cnt);//读取在校学生人数
+	fscanf(frp,"%d",&stu_out_cnt);//读取退出学生人数
 	for(int i = 0; i<stu_out_cnt;i++)
 	{
 		fscanf(frp,"%s %c %d\n",stu_out[i].name,&stu_out[i].sex,&stu_out[i].id);
@@ -72,7 +72,7 @@ void stu_out_read()
 	fclose(frp);
 }
 //读取在校老师信息
-void tch_in_read()
+void tch_in_read(void)
 {
 	//打开文件
 	FILE *frp = fopen("tch_in.txt","r");
@@ -89,7 +89,7 @@ void tch_in_read()
 	fclose(frp);
 }
 //写入在校老师信息
-void tch_in_write()
+void tch_in_write(void)
 {
 	FILE *fwp = fopen("tch_in.txt","w");
 	if(fwp == NULL)
@@ -106,7 +106,7 @@ void tch_in_write()
 }
 
 //读取离职老师信息
-void tch_out_read()
+void tch_out_read(void)
 {
 	//打开文件
 	FILE *frp = fopen("tch_out.txt","r");
@@ -124,7 +124,7 @@ void tch_out_read()
 }
 
 //写入离职老师信息
-void tch_out_write()
+void tch_out_write(void)
 {
 	FILE *fwp = fopen("tch_out.txt","w");
 	if(fwp == NULL)
@@ -132,7 +132,7 @@ void tch_out_write()
 		printf("Cannot open file!\n");
 		return;
 	}
-	fprintf(fwp,"%d\n",tch_out_cnt);//写入离职教师人数d
+	fprintf(fwp,"%d\n",tch_out_cnt);//写入离职教师人数
 	for(int i=0;i<tch_out_cnt;i++)
 	{
 		fprintf(fwp,"%s %c\n",tch_out[i].name,tch_out[i].sex);
@@ -141,7 +141,7 @@ void tch_out_write()
 }
 
 
-void admin_read()
+void admin_read(void)
 {
 	//打开文件
 	FILE *frp = fopen("admin.txt","r");
@@ -154,7 +154,7 @@ void admin_read()
 	fclose(frp);
 }
 
-void admin_write()
+void admin_write(void)
 {
 	FILE *fwp = fopen("admin.txt","w");
 	if(fwp == NULL)

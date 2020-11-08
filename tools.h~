@@ -24,7 +24,9 @@ void show_msg(const char* msg,float sec); //如果msg没有换行符，就手动
 
 void anykey_continue(void);//按任意键继续
 
-int stu_input_pwd();//学生登陆
+int stu_input_pwd();//判断学生登陆
 
-int tch_input_pwd();//老师登陆
+int tch_input_pwd();//判断老师登陆
+
+int admin_input_pwd();//判断校长登陆
 #endif//TOOLS_H

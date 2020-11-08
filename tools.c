@@ -19,7 +19,7 @@ int menu(void)
 		return n;
 }
 
-char admin_show()
+char admin_show(void)
 {
 	debug("%s\n",__func__);
 	system("clear");
@@ -40,7 +40,7 @@ char admin_show()
 
 
 //显示老师界面
-void tch_show(){
+void tch_show(void){
 	system("clear");
 	printf("欢迎来到老师管理界面,请用数字选择你想要的功能\n");
 	printf("1.添加学生\n");
@@ -89,7 +89,7 @@ void anykey_continue(void)
 	getch();
 }
 //判断学生登陆
-int stu_input_pwd()
+int stu_input_pwd(void)
 {
 	int flag = 0;	//判断学生帐号输入是否正确
 	int id;
@@ -101,7 +101,7 @@ int stu_input_pwd()
 	stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 	printf("请输入密码：");
 	scanf("%s",pwd);
-	for(int j=0;j<stu_in_cnt;j++)
+	for(int j=0;j<stu_in_cnt;j++)//进入循环
 	{	
 		//学生帐号输入正确
 		if(id == stu_in[j].id)
@@ -110,22 +110,22 @@ int stu_input_pwd()
 			if(stu_in[j].lock == 3)
 			{
 				printf("此帐号已经锁死，请找老师解锁\n");
-				anykey_continue();
-				return 0;
+				anykey_continue();//调用按任意键继续..函数
+				return 0;		//帐号锁住，登陆失败，返回主界面
 			}
 			flag = 1;
 			//学生第一次登陆，强制修改密码
 			if((strcmp(stu_in[j].pwd,"123456")==0) && (strcmp(pwd,"123456")==0))
 			{
-				opt = j;//表示是第opt个学生在操作
-				stu_modify();
-				return 1;
+				opt = j;				//表示是第opt个学生在操作
+				stu_modify();		//修改密码
+				return 1;				//登陆成功，进入学生界面
 			}
 			//非第一次登陆成功
 			else if(strcmp(pwd,stu_in[j].pwd)==0)
 			{
 				opt = j;
-				stu_in[j].lock = 0;
+				stu_in[j].lock = 0;		//登陆成功，将锁判定重置
 				return 1;
 			}
 			//登陆失败，且密码错误
@@ -140,7 +140,7 @@ int stu_input_pwd()
 				{
 					printf("此帐号已经锁死，请找老师解锁\n");
 				}
-				anykey_continue();
+				anykey_continue();//按任意键继续
 				return 0;
 			}
 		}
@@ -167,13 +167,15 @@ void tch_modify_first(int num)
 		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 		printf("请输入新密码:");
 		scanf("%s",pwd_1);
+		//判断密码是否设定在6到20位
 		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)
 		{
 			show_msg("请输入6位以上，20位以下的密码！",0.5);
-			continue;
+			continue;		//跳出本次循环
 		}
 		printf("请确认新密码:");
 		scanf("%s",pwd_2);
+		//判断两次输入密码是否一致
 		if(strcmp(pwd_1,pwd_2) == 0)
 		{
 			memset(tch_in[num].pwd,0,sizeof(char)*30);
@@ -191,7 +193,7 @@ void tch_modify_first(int num)
 	}
 }
 //判断老师登陆
-int tch_input_pwd()
+int tch_input_pwd(void)
 {
 	int flag = 0;//判断教师帐号是否输入正确
 	int id;
@@ -235,7 +237,7 @@ int tch_input_pwd()
 				{
 					printf("密码错误，请重新输入(此帐号还有%d次机会)\n",3-tch_in[j].lock);
 				}
-				else if(tch_in[j].lock == 3)
+				else if(tch_in[j].lock == 3)//输错三次锁定帐号
 				{
 					printf("此帐号已经锁死，请找老师解锁\n");
 				}
@@ -254,7 +256,7 @@ int tch_input_pwd()
 	return 0;
 }
 //判断校长登陆
-int admin_input_pwd()
+int admin_input_pwd(void)
 {
 	int flag = 0;
 	char admin_id[30];
@@ -271,7 +273,7 @@ int admin_input_pwd()
 		flag = 1;//标记用户名正确
 		if((strcmp(admin_pwd,"admin")==0) && (strcmp(pwd,"admin")==0) )//第一次登陆
 		{
-			//修改密码
+			//修改校长密码
 			admin_modify();
 			return 1;
 		}
@@ -286,6 +288,7 @@ int admin_input_pwd()
 			return 0;
 		}
 	}
+	//用户名输入错误
 	if(flag==0)
 	{
 		printf("用户名错误，请重新登陆");

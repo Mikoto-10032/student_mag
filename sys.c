@@ -64,7 +64,7 @@ void stu_out_read(void)
 		printf("Cannot open file!\n");
 		return;
 	}
-	fscanf(frp,"%d",&stu_out_cnt);//读取在校学生人数
+	fscanf(frp,"%d",&stu_out_cnt);//读取退出学生人数
 	for(int i = 0; i<stu_out_cnt;i++)
 	{
 		fscanf(frp,"%s %c %d\n",stu_out[i].name,&stu_out[i].sex,&stu_out[i].id);
@@ -132,7 +132,7 @@ void tch_out_write(void)
 		printf("Cannot open file!\n");
 		return;
 	}
-	fprintf(fwp,"%d\n",tch_out_cnt);//写入离职教师人数d
+	fprintf(fwp,"%d\n",tch_out_cnt);//写入离职教师人数
 	for(int i=0;i<tch_out_cnt;i++)
 	{
 		fprintf(fwp,"%s %c\n",tch_out[i].name,tch_out[i].sex);
@@ -140,7 +140,7 @@ void tch_out_write(void)
 	fclose(fwp);
 }
 
-
+//取读校长信息
 void admin_read(void)
 {
 	//打开文件
@@ -154,6 +154,7 @@ void admin_read(void)
 	fclose(frp);
 }
 
+//写入校长信息
 void admin_write(void)
 {
 	FILE *fwp = fopen("admin.txt","w");
@@ -166,6 +167,7 @@ void admin_write(void)
 	fclose(fwp);
 }
 
+//运行系统
 void run_sys(void)
 {
 	for(;;)
