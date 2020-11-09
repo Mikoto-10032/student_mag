@@ -88,6 +88,63 @@ void anykey_continue(void)
 	stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 	getch();
 }
+//隐藏输入密码
+void input_pwd(char pwd[30])
+{
+	int i = 0;
+	while(1)
+	{
+		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
+		pwd[i] = getch();
+		fflush(stdin);
+		if(i > 20)
+		{
+			system("clear");
+			memset(pwd,0,sizeof(char)*30);
+			i=0;
+			show_msg("请输入20位以下的密码！",1.0);
+			anykey_continue();
+			printf("请输入新密码：");
+			continue;
+		}
+		if(pwd[i] == 127)
+		{
+			if(i > 0)
+			{
+				printf("\b \b");
+				i--;
+				pwd[i] = '\0';
+				continue;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		else if(pwd[i] == 10)
+		{
+			pwd[i] = '\0';
+			if(i < 6)
+			{
+				system("clear");
+				memset(pwd,0,sizeof(char)*30);
+				i=0;
+				show_msg("请输入6位或6位以上的密码！",1.0);
+				anykey_continue();
+				printf("请重新输入密码：");
+				continue;
+			}
+			break;
+		}
+		else
+		{
+			printf("*");
+		}
+		i++;
+	}
+	printf("\n");
+}
+
 //判断学生登陆
 int stu_input_pwd(void)
 {
@@ -100,7 +157,8 @@ int stu_input_pwd(void)
 	scanf("%d",&id);
 	stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 	printf("请输入密码：");
-	scanf("%s",pwd);
+	input_pwd(pwd);
+	
 	for(int j=0;j<stu_in_cnt;j++)//进入循环
 	{	
 		//学生帐号输入正确
@@ -166,7 +224,7 @@ void tch_modify_first(int num)
 		printf("第一次登陆，请修改密码：\n");
 		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 		printf("请输入新密码:");
-		scanf("%s",pwd_1);
+		input_pwd(pwd_1);
 		//判断密码是否设定在6到20位
 		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)
 		{
@@ -174,7 +232,7 @@ void tch_modify_first(int num)
 			continue;		//跳出本次循环
 		}
 		printf("请确认新密码:");
-		scanf("%s",pwd_2);
+		input_pwd(pwd_2);
 		//判断两次输入密码是否一致
 		if(strcmp(pwd_1,pwd_2) == 0)
 		{
@@ -204,7 +262,7 @@ int tch_input_pwd(void)
 	scanf("%d",&id);
 	stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 	printf("请输入密码：");
-	scanf("%s",pwd);
+	input_pwd(pwd);
 	for(int j=0;j<tch_in_cnt;j++)
 	{	
 		//帐号输入正确
@@ -267,11 +325,11 @@ int admin_input_pwd(void)
 	scanf("%s",admin_id);
 	stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 	printf("请输入密码：");
-	scanf("%s",pwd);
+	input_pwd(pwd);
 	if(strcmp(admin_id,"admin")==0)//用户名正确
 	{
 		flag = 1;//标记用户名正确
-		if((strcmp(admin_pwd,"admin")==0) && (strcmp(pwd,"admin")==0) )//第一次登陆
+		if((strcmp(admin_pwd,"123456")==0) && (strcmp(pwd,"123456")==0) )//第一次登陆
 		{
 			//修改校长密码
 			admin_modify();

@@ -64,37 +64,15 @@ void stu_modify(void)
 	for(;;)
 	{	
 		system("clear");
-		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 		printf("请输入新密码：");
-		for(int i=0;i<30;i++)					//将输入的密码隐藏为‘*’
-		{
-			pwd_1[i] = getch();
-			if(pwd_1[i] == 10)
-			{
-				pwd_1[i] = '\0';
-				break;
-			}
-			printf("*");
-		}
-		printf("\n");
-		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)
+		input_pwd(pwd_1);
+		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<6)
 		{
 			show_msg("请输入6位以上，20位以下的密码！",1.0);
 			continue;
 		}
 		printf("请再次输入密码：");
-		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
-		for(int i=0;i<30;i++)					//将输入的密码隐藏为‘*’
-		{
-			pwd_2[i] = getch();
-			if(pwd_2[i] == 10)
-			{
-				pwd_2[i] = '\0';
-				break;
-			}
-			printf("*");
-		}
-		printf("\n");
+		input_pwd(pwd_2);
 		if(strcmp(stu_in[opt].pwd,pwd_2) == 0)					//判断输入的密码和之前的密码是否一致
 		{
 			show_msg("修改的密码与原密码相同，修改失败！",1.0);

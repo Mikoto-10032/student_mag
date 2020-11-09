@@ -11,7 +11,7 @@ int tch_in_cnt=0;//在职教师的总人数
 int tch_out_cnt=0;//离职教师的总人数
 int tch_id = 1000;//教师工号从1000开始计算
 
-char admin_pwd[30] = "admin";
+char admin_pwd[30] = "123456";
 
 //添加老师
 void add_tch(void)
@@ -135,15 +135,15 @@ void tch_modify(void)
 			{
 				printf("请输入6位以上，20位以下的密码！\n");
 				printf("请输入新密码:");
-				scanf("%s",pwd_1);
-				if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)	//判断新密码小于等于6位或大于等于20位
+				input_pwd(pwd_1);
+				if(strlen(pwd_1) >= 20 || strlen(pwd_1)<6)	//判断新密码小于等于6位或大于等于20位
 				{
 					printf("输入的密码不符合要求，修改失败！\n");
 					anykey_continue();
 					return;
 				}
 				printf("请确认新密码:");
-				scanf("%s",pwd_2);
+				input_pwd(pwd_2);
 				if(strcmp(tch_in[i].pwd,pwd_1) == 0)	//判断输入的密码和之前的密码是否一致
 				{
 					show_msg("修改的密码与原密码相同，修改失败！\n",0.5);
@@ -154,6 +154,7 @@ void tch_modify(void)
 				{
 					memset(tch_in[i].pwd,0,sizeof(char)*30);
 					strcpy(tch_in[i].pwd,pwd_1);
+					tch_in[i].lock = 0;
 					show_msg("修改密码成功！\n",0.5);
 					anykey_continue();
 					return;
@@ -182,14 +183,14 @@ void admin_modify(void)
 		system("clear");
 		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 		printf("请输入新密码:");
-		scanf("%s",pwd_1);
-		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)	//密码小于等于6位或大于等于20位
+		input_pwd(pwd_1);
+		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<6)	//密码小于等于6位或大于等于20位
 		{
 			show_msg("请输入6位以上，20位以下的密码！",1.0);
 			continue;
 		}
 		printf("请确认新密码:");
-		scanf("%s",pwd_2);
+		input_pwd(pwd_2);
 		if(strcmp(admin_pwd,pwd_1) == 0)		//判断输入的密码和之前的密码是否一致
 		{
 			show_msg("修改的密码与原密码相同，修改失败！\n",0.5);

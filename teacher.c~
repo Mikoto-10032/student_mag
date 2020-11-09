@@ -134,7 +134,7 @@ void show_school_stu(void)
 void find_stu(void)
 {
 	printf("请选择你想要的功能：\n1.按姓名查找\n2.按学号查找\n3.返回上一级\n");
-	int n;
+	int n,flag=0;
 	scanf("%d",&n);
 	for(;;)
 	{
@@ -145,12 +145,17 @@ void find_stu(void)
 			scanf("%s",name); 
 			for(int i=0;i<stu_in_cnt;i++)
 			{
-				if(0==strcmp(name,stu_in[i].name))
+				if(0==strcmp(name,stu_in[i].name) || strstr(stu_in[i].name,name) != NULL)
 				{
+					flag = 1;
 					printf("学号：%d  姓名：%s  性别：%s  数学成绩：%d  语文成绩：%d  英语成绩：%d  总分：%d 总排名：%d\n", stu_in[i].id, stu_in[i].name, (stu_in[i].sex =='m'? "男":"女"), stu_in[i].math, stu_in[i].chinese, stu_in[i].english, stu_in[i].sum,stu_in[i].rank);
-					anykey_continue();
-					return;
+					continue;
 				}
+			}
+			if(flag == 1)
+			{
+				anykey_continue();
+				return;
 			}
 				printf("查无此人,是否想重新输入？\n1.重新输入\n2.退出\n");
 				int if_continue=0;
@@ -419,7 +424,7 @@ void show_exit_stu(void)
 	system("clear");
 }
 
-
+//运行老师系统
 void run_teacher(void)
 {
 	for(;;)

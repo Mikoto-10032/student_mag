@@ -1,4 +1,2 @@
-3
-ee w 107
-qq w 106
-xxxx w 103
+1
+stu3 w 3

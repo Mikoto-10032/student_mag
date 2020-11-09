@@ -1,4 +1,3 @@
-3
-xx m
-22 x
-tch3 w
+2
+tch w
+tch2 m

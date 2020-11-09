@@ -11,7 +11,7 @@ int tch_in_cnt=0;//在职教师的总人数
 int tch_out_cnt=0;//离职教师的总人数
 int tch_id = 1000;//教师工号从1000开始计算
 
-char admin_pwd[30] = "admin";
+char admin_pwd[30] = "123456";
 
 //添加老师
 void add_tch(void)
@@ -135,15 +135,15 @@ void tch_modify(void)
 			{
 				printf("请输入6位以上，20位以下的密码！\n");
 				printf("请输入新密码:");
-				scanf("%s",pwd_1);
-				if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)	//判断新密码小于等于6位或大于等于20位
+				input_pwd(pwd_1);
+				if(strlen(pwd_1) >= 20 || strlen(pwd_1)<6)	//判断新密码小于等于6位或大于等于20位
 				{
 					printf("输入的密码不符合要求，修改失败！\n");
 					anykey_continue();
 					return;
 				}
 				printf("请确认新密码:");
-				scanf("%s",pwd_2);
+				input_pwd(pwd_2);
 				if(strcmp(tch_in[i].pwd,pwd_1) == 0)	//判断输入的密码和之前的密码是否一致
 				{
 					show_msg("修改的密码与原密码相同，修改失败！\n",0.5);
@@ -154,6 +154,7 @@ void tch_modify(void)
 				{
 					memset(tch_in[i].pwd,0,sizeof(char)*30);
 					strcpy(tch_in[i].pwd,pwd_1);
+					tch_in[i].lock = 0;
 					show_msg("修改密码成功！\n",0.5);
 					anykey_continue();
 					return;
@@ -183,20 +184,20 @@ void admin_modify(void)
 		stdin -> _IO_read_ptr = stdin -> _IO_read_end;
 		printf("请输入新密码:");
 		scanf("%s",pwd_1);
-		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<=6)	//密码小于等于6位或大于等于20位
+		if(strlen(pwd_1) >= 20 || strlen(pwd_1)<6)	//密码小于等于6位或大于等于20位
 		{
 			show_msg("请输入6位以上，20位以下的密码！",1.0);
 			continue;
 		}
 		printf("请确认新密码:");
 		scanf("%s",pwd_2);
-		if(strcmp(admin_pwd,pwd_1) == 0)
+		if(strcmp(admin_pwd,pwd_1) == 0)		//判断输入的密码和之前的密码是否一致
 		{
 			show_msg("修改的密码与原密码相同，修改失败！\n",0.5);
 			anykey_continue();
 			return;
 		}
-		else if(strcmp(pwd_1,pwd_2) == 0)
+		else if(strcmp(pwd_1,pwd_2) == 0)		//判断输入的两次密码是否一致
 		{
 			memset(admin_pwd,0,sizeof(char)*30);
 			strcpy(admin_pwd,pwd_1);
@@ -204,7 +205,7 @@ void admin_modify(void)
 			anykey_continue();
 			return;
 		}
-		else
+		else		//输入的两次密码不一致
 		{
 			show_msg("两次密码不一致，修改失败\n",0.5);
 			anykey_continue();
@@ -221,13 +222,13 @@ void run_admin(void)
 		//显示校长目录
 		switch(admin_show())
 		{
-			case '1':add_tch();break;
-			case '2':del_tch();break;
-			case '3':show_school_tch();break;
-			case '4':show_exit_tch();break;
-			case '5':tch_modify();break;
-			case '6':admin_modify();break;
-			case '0':return;
+			case '1':add_tch();break;				//按‘1’添加教师
+			case '2':del_tch();break;				//按‘2’删除教师
+			case '3':show_school_tch();break;	//按‘3’显示在职教师
+			case '4':show_exit_tch();break;		//按‘4’显示离职教师
+			case '5':tch_modify();break;			//按‘5’修改教师密码
+			case '6':admin_modify();break;		//按‘6’修改校长密码
+			case '0':return;						//按‘0’返回主界面
 			default:printf("输入的数字有误，请重新输入\n");anykey_continue();
 		}
 	}
